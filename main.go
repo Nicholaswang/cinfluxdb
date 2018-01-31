@@ -28,7 +28,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, "Problem loading config file:", err)
 	}
 
-	p, err := cluster.New(cfg)
+	c, err := cluster.New(cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -38,9 +38,9 @@ func main() {
 
 	go func() {
 		<-sigChan
-		p.Stop()
+		c.Stop()
 	}()
 
 	log.Println("starting influxdb proxy...")
-	p.Run()
+	c.Run()
 }
